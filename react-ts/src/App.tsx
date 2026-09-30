@@ -4,7 +4,8 @@ import { StudentCard, type StudentCardProps } from './components/StudentCard'
 import { MarkdownViewer } from './components/MarkdownViewer'
 import progressMarkdownDay1 from '../../docs/progress/minggu-01/PROGRESS_HARI_01.md?raw'
 import progressMarkdownDay2 from '../../docs/progress/minggu-01/PROGRESS_HARI_02.md?raw'
-import { useState } from 'react'
+import progressMarkdownDay3 from '../../docs/progress/minggu-01/PROGRESS_HARI_03.md?raw'
+import { useEffect, useState } from 'react'
 
 interface formDataShape {
   name: string
@@ -58,6 +59,13 @@ function App() {
 
   // using students state directly
   const [studentsState, setStudentsState] = useState<StudentCardProps[]>(students)
+  
+  // data for search query
+  const [searchQuery, setSearchQuery] = useState<string>('')
+
+  const filteredStudents = studentsState.filter(student =>
+    student.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
 
   // function to add a new student
@@ -87,6 +95,75 @@ function App() {
   // function to delete a student
   const handleDeleteStudent = (name: string) => {
     setStudentsState(prev => prev.filter(student => student.name !== name))
+  }
+
+  // days 3: side effects
+
+  interface ApiUser {
+    id: number
+    name: string
+    company: {
+      name: string
+      bs: string
+    }
+  }
+
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [apiError, setApiError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const abortController = new AbortController()
+    
+    // function fetch user
+    const fetchUser = async () => {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users', { signal: abortController.signal })
+
+        if (!response.ok) throw new Error('Failed to fetch user (' + response.status + ')')
+        
+        const data = await response.json()
+
+        console.log('Fetched user:', data)
+
+        // map to StudentCardProps[]
+        const mappedStudents: StudentCardProps[] = data.map((user: ApiUser) => ({
+          name: user.name,
+          role: user.company.bs ?? 'Unknown',
+          batch: 3,
+          isEnrolled: true,
+          rating: 0,
+          skills: []
+        }))
+
+        setStudentsState(mappedStudents)
+
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') {
+            return
+          }
+          setApiError(error.message)
+        }
+      } finally {
+        if (!abortController.signal.aborted) {
+          setIsLoading(false)
+        }
+      }
+    }
+
+    fetchUser()
+
+    return () => {
+      abortController.abort()
+    }
+    
+  }, [])
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+  if (apiError) {
+    return <p>Error: {apiError}</p>
   }
 
   return (
@@ -147,9 +224,18 @@ function App() {
       
       <h3>Daftar Peserta Bootcamp</h3>
 
+      {/* search text field */}
+
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Search students by name..."
+      />
+
       {/* flex container for student cards */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-        { studentsState.map((student) => (
+        { filteredStudents.map((student) => (
           <StudentCard
             key={student.name}
             name={student.name}
@@ -174,13 +260,21 @@ function App() {
 
       {/* Tampilan Markdown Terformat & Collapsible (Bisa di-Hide/Show) */}
       <MarkdownViewer
+        title="Catatan Progress: Hari 3 - Side Effects, useEffect, API Fetching & Derived State (Rabu, 30 Sep 2026)"
+        content={progressMarkdownDay3}
+        defaultOpen={true}
+      />
+
+      <MarkdownViewer
         title="Catatan Progress: Hari 2 - State Fundamental, Immutability & Interaktivitas useState (Selasa, 29 Sep 2026)"
         content={progressMarkdownDay2}
+        defaultOpen={false}
       />
 
       <MarkdownViewer
         title="Catatan Progress: Hari 1 - Setup Vite, TSX & Modular Components (Senin, 28 Sep 2026)"
         content={progressMarkdownDay1}
+        defaultOpen={false}
       />
 
     </>
