@@ -12,7 +12,13 @@ export interface StudentCardProps {
 
 // 2. Destructure props in the component function
 export function StudentCard({
-    name, role, batch, isEnrolled, skills, rating, children
+    name,
+    role,
+    batch,
+    isEnrolled,
+    skills,
+    rating,
+    children
 }: StudentCardProps) {
     
     const isTopStudent = rating === 5;
