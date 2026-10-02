@@ -1,24 +1,26 @@
-
-import { useEffect, useState } from 'react'
-
+import { useEffect, useState } from "react"
 
 export function Header() {
-
   const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString())
 
   useEffect(() => {
     const timer = setInterval(() => {
-      console.log('Timer tick')
       setCurrentTime(new Date().toLocaleTimeString())
     }, 1000)
 
     return () => clearInterval(timer)
   }, [])
-  
-    return (
-    <header style={{ padding: '1rem', borderBottom: '1px solid #e2e8f0', marginBottom: '1.5rem' }}>
-      <h1 style={{ margin: '1rem 1rem 1rem 1rem', color: '#b4cd27' }}>Dashboard Belajar React</h1>
-      <p style={{ margin: '0.25rem 0 0 0', color: '#64748b' }}>{currentTime}</p>
+
+  return (
+    <header className="px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-800/50 backdrop-blur-xs">
+      <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Dashboard Belajar React
+        </h1>
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-mono">
+          ⏱️ {currentTime}
+        </p>
+      </div>
     </header>
   )
 }

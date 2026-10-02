@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { StudentCard } from '../components/StudentCard'
-import type { Student } from '../types/student'
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import { StudentCard } from "../components/StudentCard"
+import type { Student } from "../types/student"
+import { Button, getButtonClasses } from "../components/ui/Button"
 
 interface FormDataShape {
   name: string
   role: string
-  batch: number | ''
+  batch: number | ""
   skills: string[]
 }
 
@@ -26,14 +27,14 @@ export function HomePage() {
   const [apiError, setApiError] = useState<string | null>(null)
 
   const [formData, setFormData] = useState<FormDataShape>({
-    name: '',
-    role: '',
+    name: "",
+    role: "",
     batch: 0,
     skills: []
   })
 
   const [studentsState, setStudentsState] = useState<Student[]>([])
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>("")
 
   // Derived state untuk pencarian
   const filteredStudents = studentsState.filter(student =>
@@ -47,14 +48,14 @@ export function HomePage() {
       id: Date.now(),
       name: formData.name,
       role: formData.role,
-      batch: typeof formData.batch === 'number' ? formData.batch : 1,
+      batch: typeof formData.batch === "number" ? formData.batch : 1,
       isEnrolled: true,
       rating: 5,
-      skills: formData.skills.length > 0 ? formData.skills : ['React']
+      skills: formData.skills.length > 0 ? formData.skills : ["React"]
     }
 
     setStudentsState(prev => [...prev, newStudent])
-    setFormData({ name: '', role: '', batch: 0, skills: [] })
+    setFormData({ name: "", role: "", batch: 0, skills: [] })
   }
 
   const handleDeleteStudent = (indexToDelete: number) => {
@@ -67,10 +68,10 @@ export function HomePage() {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users", {
           signal: abortController.signal
         })
-        if (!response.ok) throw new Error('Gagal mengambil data!')
+        if (!response.ok) throw new Error("Gagal mengambil data!")
 
         const data: ApiUser[] = await response.json()
         const mappedStudents: Student[] = data.map((user: ApiUser) => ({
@@ -86,7 +87,7 @@ export function HomePage() {
         setStudentsState(mappedStudents)
       } catch (error: unknown) {
         if (error instanceof Error) {
-          if (error.name === 'AbortError') return
+          if (error.name === "AbortError") return
           setApiError(error.message)
         }
       } finally {
@@ -100,72 +101,100 @@ export function HomePage() {
     return () => abortController.abort()
   }, [])
 
-  if (isLoading) return <p style={{ textAlign: 'center', padding: '2rem' }}>⏳ Memuat data mahasiswa...</p>
-  if (apiError) return <p style={{ color: '#ef4444', textAlign: 'center' }}>Error: {apiError}</p>
+  if (isLoading) {
+    return (
+      <div className="text-center py-16 text-gray-500 dark:text-gray-400 font-medium">
+        ⏳ Memuat data mahasiswa...
+      </div>
+    )
+  }
+
+  if (apiError) {
+    return (
+      <div className="text-center py-16 text-red-500 font-medium">
+        Error: {apiError}
+      </div>
+    )
+  }
 
   return (
-    <div>
+    <div className="max-w-6xl mx-auto px-4 py-6">
       {/* Toggle & Counter */}
-      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '1.5rem' }}>
-        <button onClick={() => setShowDetails(prev => !prev)}>
-          {showDetails ? 'Sembunyikan Deskripsi' : 'Tampilkan Deskripsi'}
-        </button>
-        <button onClick={() => setCounter(prev => prev + 1)}>
+      <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+        <Button variant="secondary" size="sm" onClick={() => setShowDetails(prev => !prev)}>
+          {showDetails ? "👁️ Sembunyikan Deskripsi" : "👁️ Tampilkan Deskripsi"}
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => setCounter(prev => prev + 1)}>
           Hitung Interaksi: {counter}
-        </button>
+        </Button>
       </div>
 
       {showDetails && (
-        <p style={{ maxWidth: '600px', margin: '0 auto 1.5rem', color: '#64748b' }}>
+        <p className="max-w-xl mx-auto mb-8 text-sm text-center text-gray-600 dark:text-gray-400">
           Selamat datang di portal mahasiswa! Klik tombol detail pada tiap kartu untuk melihat data lengkap via dynamic routing!
         </p>
       )}
 
-      {/* Form Tambah */}
-      <div style={{
-        maxWidth: '400px',
-        margin: '0 auto 1.5rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.5rem',
-        padding: '1rem',
-        border: '1px solid #334155',
-        borderRadius: '8px'
-      }}>
-        <h3>Tambah Mahasiswa Baru</h3>
-        <input
-          type="text"
-          value={formData.name}
-          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-          placeholder="Nama mahasiswa..."
-        />
-        <input
-          type="text"
-          value={formData.role}
-          onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
-          placeholder="Role/Keahlian..."
-        />
-        <button onClick={handleAddStudent}>➕ Tambah ke Daftar</button>
+      {/* Form Tambah Mahasiswa Adaptive (Persis Mengikuti Tema Card) */}
+      <div className="max-w-md mx-auto bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm mb-8 transition-all">
+        <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+          ✨ Tambah Mahasiswa Baru
+        </h3>
+
+        <div className="flex flex-col gap-3.5">
+          {/* Input 1: Nama */}
+          <div>
+            <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">
+              Nama Lengkap
+            </label>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              placeholder="Contoh: John Doe"
+              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg px-3.5 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            />
+          </div>
+
+          {/* Input 2: Role / Keahlian */}
+          <div>
+            <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">
+              Role / Keahlian
+            </label>
+            <input
+              type="text"
+              value={formData.role}
+              onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
+              placeholder="Contoh: Frontend React Engineer"
+              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg px-3.5 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            />
+          </div>
+
+          {/* Tombol Submit */}
+          <Button
+            variant="primary"
+            size="md"
+            className="w-full mt-2"
+            onClick={handleAddStudent}
+          >
+            ➕ Tambah ke Daftar
+          </Button>
+        </div>
       </div>
 
-      {/* Search Input */}
-      <div style={{ margin: '0 auto 1.5rem', maxWidth: '400px' }}>
+      {/* Search Input Adaptive */}
+      <div className="max-w-md mx-auto mb-8">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="🔍 Cari nama mahasiswa..."
-          style={{ width: '100%', padding: '0.5rem', boxSizing: 'border-box' }}
+          className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
         />
       </div>
 
-      {/* Grid Kartu Mahasiswa */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '1rem',
-        padding: '1rem 0'
-      }}>
+      {/* Grid Kartu Mahasiswa Responsif */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredStudents.map((student, index) => (
           <StudentCard
             key={student.id ?? index}
@@ -176,27 +205,22 @@ export function HomePage() {
             rating={student.rating}
             skills={student.skills}
           >
-            <div style={{ marginTop: '0.75rem', display: 'flex', gap: '0.5rem', justifyContent: 'space-between' }}>
+            <div className="flex items-center justify-between gap-2">
               {/* Tautan Navigasi Dinamis ke Halaman Detail */}
               <Link
                 to={`/students/${student.id ?? (index + 1)}`}
-                style={{
-                  padding: '4px 8px',
-                  backgroundColor: '#0284c7',
-                  color: '#ffffff',
-                  borderRadius: '4px',
-                  textDecoration: 'none',
-                  fontSize: '0.85rem'
-                }}
+                className={getButtonClasses("primary", "sm")}
               >
                 Lihat Detail ➡️
               </Link>
-              <button
+
+              <Button
                 onClick={() => handleDeleteStudent(index)}
-                style={{ backgroundColor: '#ef4444', color: '#fff', fontSize: '0.85rem' }}
+                variant="danger"
+                size="sm"
               >
                 Hapus
-              </button>
+              </Button>
             </div>
           </StudentCard>
         ))}
