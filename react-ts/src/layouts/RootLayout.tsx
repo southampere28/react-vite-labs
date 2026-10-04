@@ -19,6 +19,33 @@ export const RootLayout = () => {
           🏠 Beranda & Mahasiswa
         </NavLink>
 
+
+        <NavLink
+          to="/playground"
+          className={({ isActive }) =>
+            `text-sm font-medium transition-colors ${
+              isActive
+                ? "text-blue-600 dark:text-blue-400 font-semibold"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+            }`
+          }
+        >
+          🎮 Zustand Playground
+        </NavLink>
+
+        <NavLink
+          to="/tasks"
+          className={({ isActive }) =>
+            `text-sm font-medium transition-colors ${
+              isActive
+                ? "text-blue-600 dark:text-blue-400 font-semibold"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+            }`
+          }
+        >
+          🎯 Task Tracker (Mini Project 1)
+        </NavLink>
+
         <NavLink
           to="/notes"
           className={({ isActive }) =>
