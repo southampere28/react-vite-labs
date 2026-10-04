@@ -1,75 +1,43 @@
-# React + TypeScript + Vite
+# ⚛️ React 19 + TypeScript + Vite Application
+### Interactive Study & Task Tracker + High-Frequency Zustand Playground
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bagian frontend utama dari ekosistem pembelajaran intensif React modern. Aplikasi ini memadukan **React 19**, **TypeScript**, **Zustand**, dan **Tailwind CSS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Fitur yang Diterapkan
 
-## React Compiler
+- **Task Manager & Study Tracker**:
+  - Operasi CRUD lengkap dengan persistensi `localStorage` otomatis melalui middleware `persist` Zustand.
+  - Selektor atomik performa tinggi guna mencegah re-render yang tidak perlu.
+  - Filter kategori dinamis (Vite, State, Routing, Styling, Backend) dan status pencarian instan.
+  - Penghitungan statistik pembelajaran otomatis (*derived values*).
+- **Zustand High-Frequency Playground**:
+  - Arena 1: Pelacakan koordinat pointer mouse horizontal real-time 60 FPS.
+  - Arena 2: Pengubah umur reaktif dengan transformasi avatar dan label kategori umur otomatis.
+- **Routing Multi-Halaman Modern**:
+  - Berbasis `react-router-dom` v7 (`/`, `/playground`, `/tasks`, `/notes`, `/students/:id`).
+  - Layout terpusat (`RootLayout`) dengan indikator rute aktif otomatis.
+- **Kesiapan Deployment Produksi**:
+  - Konfigurasi `vercel.json` dan `public/_redirects` untuk penanganan SPA routing fallback (mencegah error 404 pada saat hard refresh).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Perintah Pengujian & Eksekusi
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Jalankan server pengembang lokal (HMR instan)
+npm run dev
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Pemeriksaan tipe data TypeScript
+npx tsc --noEmit
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Pemeriksaan linter ESLint
+npm run lint
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Kompilasi build produksi (Rollup minified di dist/)
+npm run build
 
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# Pratinjau lokal hasil build produksi
+npm run preview
 ```

@@ -5,6 +5,7 @@ import progressMarkdownDay3 from '../../../docs/progress/minggu-01/PROGRESS_HARI
 import progressMarkdownDay4 from '../../../docs/progress/minggu-01/PROGRESS_HARI_04.md?raw'
 import progressMarkdownDay5 from '../../../docs/progress/minggu-01/PROGRESS_HARI_05.md?raw'
 import progressMarkdownDay6 from '../../../docs/progress/minggu-01/PROGRESS_HARI_06.md?raw'
+import progressMarkdownDay7 from '../../../docs/progress/minggu-01/PROGRESS_HARI_07.md?raw'
 
 export function ProgressNotesPage() {
   return (
@@ -12,9 +13,15 @@ export function ProgressNotesPage() {
       <h2 style={{ color: '#38bdf8', marginBottom: '1.5rem' }}>📚 Arsip Catatan Progress Belajar</h2>
 
       <MarkdownViewer
+        title="Catatan Progress: Hari 7 - Optimasi Build Produksi, Deployment Mini Project 1 & Portofolio GitHub (Minggu, 4 Okt 2026)"
+        content={progressMarkdownDay7}
+        defaultOpen={true}
+      />
+
+      <MarkdownViewer
         title="Catatan Progress: Hari 6 - Global State Management Zustand, Persistensi LocalStorage & Mini Project 1 (Sabtu, 3 Okt 2026)"
         content={progressMarkdownDay6}
-        defaultOpen={true}
+        defaultOpen={false}
       />
 
       <MarkdownViewer
