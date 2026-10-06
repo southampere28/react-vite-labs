@@ -6,6 +6,7 @@ import progressMarkdownDay4 from '../../../docs/progress/minggu-01/PROGRESS_HARI
 import progressMarkdownDay5 from '../../../docs/progress/minggu-01/PROGRESS_HARI_05.md?raw'
 import progressMarkdownDay6 from '../../../docs/progress/minggu-01/PROGRESS_HARI_06.md?raw'
 import progressMarkdownDay7 from '../../../docs/progress/minggu-01/PROGRESS_HARI_07.md?raw'
+import progressMarkdownDay8 from '../../../docs/progress/minggu-02/PROGRESS_HARI_08.md?raw'
 
 export function ProgressNotesPage() {
   return (
@@ -13,9 +14,15 @@ export function ProgressNotesPage() {
       <h2 style={{ color: '#38bdf8', marginBottom: '1.5rem' }}>📚 Arsip Catatan Progress Belajar</h2>
 
       <MarkdownViewer
+        title="Catatan Progress: Hari 8 - Integrasi Backend Laravel REST API & Otentikasi Sanctum (Senin, 5 Okt 2026)"
+        content={progressMarkdownDay8}
+        defaultOpen={true}
+      />
+
+      <MarkdownViewer
         title="Catatan Progress: Hari 7 - Optimasi Build Produksi, Deployment Mini Project 1 & Portofolio GitHub (Minggu, 4 Okt 2026)"
         content={progressMarkdownDay7}
-        defaultOpen={true}
+        defaultOpen={false}
       />
 
       <MarkdownViewer
