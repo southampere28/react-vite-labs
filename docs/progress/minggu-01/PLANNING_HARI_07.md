@@ -12,7 +12,7 @@ Sub-Agent Penanggung Jawab: **Deployment, QA & Portfolio Specialist**
 - Memecahkan masalah klasik SPA routing (mengatasi error 404 saat *hard-refresh* URL rute statis pada hosting seperti Vercel atau Netlify).
 - Mengonfigurasi file rewrite SPA (`vercel.json` dan `public/_redirects`).
 - Menguji hasil bundel produksi secara lokal menggunakan perintah simulasi `npm run preview`.
-- Menyusun dokumentasi portofolio repositori GitHub bintang 5 (`README.md`) yang profesional dan memikat penilai/recruiter program Maganghub.
+- Menyusun dokumentasi portofolio repositori GitHub bintang 5 (`README.md`) yang profesional dan memikat penilai/recruiter dunia kerja industri tech.
 - Merangkum seluruh pencapaian pembelajaran Minggu 1 (Hari 1 hingga Hari 7) sebagai fondasi kokoh sebelum melangkah ke integrasi backend Laravel di Minggu 2.
 
 ---

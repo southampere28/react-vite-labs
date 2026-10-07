@@ -9,6 +9,7 @@ import { PlaygroundPage } from '../pages/PlaygroundPage'
 import { DashboardPage } from '../pages/DashboardPage'
 import { LoginPage } from '../pages/LoginPage'
 import { RegisterPage } from '../pages/RegisterPage'
+import { FormStudioPage } from '../pages/FormStudioPage'
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: 'forms',
+        element: <FormStudioPage />,
       },
       {
         path: 'playground',
@@ -60,5 +65,6 @@ export const router = createBrowserRouter([
     ],
   },
 ])
+
 
 
