@@ -7,6 +7,7 @@ import progressMarkdownDay5 from '../../../docs/progress/minggu-01/PROGRESS_HARI
 import progressMarkdownDay6 from '../../../docs/progress/minggu-01/PROGRESS_HARI_06.md?raw'
 import progressMarkdownDay7 from '../../../docs/progress/minggu-01/PROGRESS_HARI_07.md?raw'
 import progressMarkdownDay8 from '../../../docs/progress/minggu-02/PROGRESS_HARI_08.md?raw'
+import progressMarkdownDay9 from '../../../docs/progress/minggu-02/PROGRESS_HARI_09.md?raw'
 
 export function ProgressNotesPage() {
   return (
@@ -14,9 +15,15 @@ export function ProgressNotesPage() {
       <h2 style={{ color: '#38bdf8', marginBottom: '1.5rem' }}>📚 Arsip Catatan Progress Belajar</h2>
 
       <MarkdownViewer
+        title="Catatan Progress: Hari 9 - React Hook Form, Validasi Skema Zod & Komponen UI Modern (Selasa, 6 Okt 2026)"
+        content={progressMarkdownDay9}
+        defaultOpen={true}
+      />
+
+      <MarkdownViewer
         title="Catatan Progress: Hari 8 - Integrasi Backend Laravel REST API & Otentikasi Sanctum (Senin, 5 Okt 2026)"
         content={progressMarkdownDay8}
-        defaultOpen={true}
+        defaultOpen={false}
       />
 
       <MarkdownViewer

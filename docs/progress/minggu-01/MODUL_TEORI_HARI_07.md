@@ -79,7 +79,7 @@ Sebelum melakukan deployment ke internet publik, pengembang profesional selalu m
 
 ### 5. Standar Dokumentasi Portofolio GitHub Bintang 5
 
-Untuk menarik perhatian rekruter industri atau reviewer program magang (seperti Maganghub / Kampus Merdeka), repositori GitHub wajib memiliki dokumentasi yang terstruktur rapi:
+Untuk menarik perhatian rekruter industri atau reviewer program magang / kerja industri tech, repositori GitHub wajib memiliki dokumentasi yang terstruktur rapi:
 
 - **Hero Title & Badges**: Identitas proyek, status build, versi React (React 19), TypeScript, Vite, Tailwind CSS, dan Zustand.
 - **Tinjauan Aplikasi (Overview)**: Latar belakang aplikasi, kegunaan utama, serta target capaian kurikulum.
