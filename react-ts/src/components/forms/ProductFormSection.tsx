@@ -15,7 +15,7 @@ import { Checkbox } from '../ui/Checkbox'
 import { Button } from '../ui/Button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../ui/Card'
 import { FormStateDebugger } from './FormStateDebugger'
-import { AlertCircle, CheckCircle2, PackagePlus, RotateCcw, Sparkles } from 'lucide-react'
+import { CheckCircle2, PackagePlus, RotateCcw, Sparkles } from 'lucide-react'
 
 export function ProductFormSection() {
   const [submittedData, setSubmittedData] = useState<ProductFormInput | null>(null)
@@ -262,7 +262,7 @@ export function ProductFormSection() {
             </p>
           </div>
         )}
-        
+
       </div>
 
       <div className="lg:col-span-5 flex flex-col">
