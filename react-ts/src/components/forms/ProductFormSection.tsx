@@ -17,24 +17,24 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { FormStateDebugger } from './FormStateDebugger'
 import { CheckCircle2, PackagePlus, RotateCcw, Sparkles } from 'lucide-react'
 
+const DEFAULT_PRODUCT_VALUES: ProductFormInput = {
+  name: '',
+  sku: '',
+  category: 'electronics',
+  costPrice: 0,
+  sellingPrice: 0,
+  stock: 10,
+  weightKg: 0.5,
+  status: 'draft',
+  description: '',
+  warrantyIncluded: true,
+}
+
 export function ProductFormSection() {
   const [submittedData, setSubmittedData] = useState<ProductFormInput | null>(null)
   const addProduct = useInventStore((state) => state.addProduct)
   const products = useInventStore((state) => state.products)
   const removeProduct = useInventStore((state) => state.removeProduct)
-
-  const defaultValues: ProductFormInput = {
-    name: '',
-    sku: '',
-    category: 'electronics',
-    costPrice: 0,
-    sellingPrice: 0,
-    stock: 10,
-    weightKg: 0.5,
-    status: 'draft',
-    description: '',
-    warrantyIncluded: true,
-  }
 
   const {
     register,
@@ -45,13 +45,13 @@ export function ProductFormSection() {
     formState: { errors, isSubmitting, isDirty, isValid, submitCount, isSubmitSuccessful },
   } = useForm<ProductFormInput>({
     resolver: zodResolver(productSchema),
-    defaultValues,
+    defaultValues: DEFAULT_PRODUCT_VALUES,
     mode: 'onChange',
   })
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset(defaultValues)
+      reset(DEFAULT_PRODUCT_VALUES)
 
       // allert
       alert('Produk berhasil ditambahkan!')
@@ -229,7 +229,7 @@ export function ProductFormSection() {
                 variant="ghost"
                 size="md"
                 onClick={() => {
-                  reset(defaultValues)
+                  reset(DEFAULT_PRODUCT_VALUES)
                   setSubmittedData(null)
                 }}
               >

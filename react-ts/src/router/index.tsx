@@ -10,6 +10,8 @@ import { DashboardPage } from '../pages/DashboardPage'
 import { LoginPage } from '../pages/LoginPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { FormStudioPage } from '../pages/FormStudioPage'
+import { PerformanceStudioPage } from '../pages/PerformanceStudioPage'
+import { NextjsStudioPage } from '../pages/NextjsStudioPage'
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
       {
         path: 'forms',
         element: <FormStudioPage />,
+      },
+      {
+        path: 'performance',
+        element: <PerformanceStudioPage />,
+      },
+      {
+        path: 'nextjs-intro',
+        element: <NextjsStudioPage />,
       },
       {
         path: 'playground',
@@ -65,6 +75,7 @@ export const router = createBrowserRouter([
     ],
   },
 ])
+
 
 
 
