@@ -100,3 +100,132 @@ const STRATEGIES: Record<StrategyType, StrategyInfo> = {
     cons: ['Pengunjung pertama saat kedaluwarsa melihat cache lama sekejap'],
   },
 }
+
+export function RenderingParadigmSection() {
+  const [activeStrategy, setActiveStrategy] = useState<StrategyType>('ssr')
+  const current = STRATEGIES[activeStrategy]
+
+  return (
+    <Card className="border-gray-200 dark:border-gray-800">
+      <CardHeader>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <CardTitle className="text-xl font-bold flex items-center gap-2">
+              <Globe className="w-5 h-5 text-indigo-500" />
+              <span>1. Simulator Paradigma Rendering Web (CSR vs SSR vs SSG vs ISR)</span>
+            </CardTitle>
+            <CardDescription>
+              Bandingkan jalur transmisi jaringan, kecepatan render pertama (FCP), dan skor SEO.
+            </CardDescription>
+          </div>
+          <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${current.badgeColor}`}>
+            {current.badge}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3">
+          {(Object.keys(STRATEGIES) as StrategyType[]).map((key) => {
+            const item = STRATEGIES[key]
+            const isActive = activeStrategy === key
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setActiveStrategy(key)}
+                className={`px-3 py-2 rounded-xl text-left font-medium text-xs sm:text-sm transition-all border ${
+                  isActive
+                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20'
+                    : 'bg-gray-50 dark:bg-gray-900/60 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-800'
+                }`}
+              >
+                <div className="font-bold uppercase tracking-wider">{item.id}</div>
+                <div className="text-[11px] opacity-85 truncate">{item.id === 'csr' ? 'SPA Vite' : item.id.toUpperCase()}</div>
+              </button>
+            )
+          })}
+        </div>
+      </CardHeader>
+
+      <CardContent className="space-y-6">
+        <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800">
+          <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">{current.title}</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{current.subtitle}</p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+            <div className="p-3 rounded-lg bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800">
+              <span className="text-[11px] text-gray-500 uppercase font-semibold block">TTFB</span>
+              <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-gray-100">{current.ttfb}</span>
+            </div>
+            <div className="p-3 rounded-lg bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800">
+              <span className="text-[11px] text-gray-500 uppercase font-semibold block">FCP (First Paint)</span>
+              <span className="text-xs sm:text-sm font-bold text-indigo-600 dark:text-indigo-400">{current.fcp}</span>
+            </div>
+            <div className="p-3 rounded-lg bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800">
+              <span className="text-[11px] text-gray-500 uppercase font-semibold block">JS Bundle</span>
+              <span className="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400">{current.jsBundle}</span>
+            </div>
+            <div className="p-3 rounded-lg bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800">
+              <span className="text-[11px] text-gray-500 uppercase font-semibold block">Skor SEO</span>
+              <span className="text-xs sm:text-sm font-bold text-amber-600 dark:text-amber-400">{current.seoScore}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+            <Zap className="w-4 h-4 text-amber-500" />
+            <span>Alur Transmisi Waktu & Siklus Render:</span>
+          </h4>
+
+          <div className="space-y-2">
+            {current.timeline.map((step, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-between gap-3 p-3 rounded-xl bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 text-xs sm:text-sm"
+              >
+                <div className="flex items-center gap-2.5">
+                  {step.state === 'server' && <Server className="w-4 h-4 text-purple-500 shrink-0" />}
+                  {step.state === 'network' && <RefreshCw className="w-4 h-4 text-blue-500 shrink-0" />}
+                  {step.state === 'browser' && <Cpu className="w-4 h-4 text-emerald-500 shrink-0" />}
+                  <div>
+                    <span className="font-bold text-gray-900 dark:text-white mr-2">{step.step}:</span>
+                    <span className="text-gray-600 dark:text-gray-400">{step.desc}</span>
+                  </div>
+                </div>
+                <span className="font-mono text-xs px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 shrink-0 border border-gray-200 dark:border-gray-800">
+                  {step.time}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 space-y-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Keunggulan Utama:</span>
+            </h4>
+            <ul className="space-y-1 text-xs text-gray-700 dark:text-gray-300 list-disc list-inside">
+              {current.pros.map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="p-4 rounded-xl bg-rose-500/5 border border-rose-500/20 space-y-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
+              <AlertTriangle className="w-4 h-4" />
+              <span>Pertimbangan & Trade-off:</span>
+            </h4>
+            <ul className="space-y-1 text-xs text-gray-700 dark:text-gray-300 list-disc list-inside">
+              {current.cons.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}

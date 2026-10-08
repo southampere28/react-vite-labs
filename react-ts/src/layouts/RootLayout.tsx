@@ -70,6 +70,19 @@ export const RootLayout = () => {
           </NavLink>
 
           <NavLink
+            to="/nextjs-intro"
+            className={({ isActive }) =>
+              `text-sm font-medium transition-colors ${
+                isActive
+                  ? "text-blue-600 dark:text-blue-400 font-semibold"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+              }`
+            }
+          >
+            ▲ Next.js (Hari 11)
+          </NavLink>
+
+          <NavLink
             to="/tasks"
             className={({ isActive }) =>
               `text-sm font-medium transition-colors ${

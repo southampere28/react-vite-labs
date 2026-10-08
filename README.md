@@ -52,8 +52,8 @@ Aplikasi **Interactive Study & Task Tracker + 60 FPS Zustand Playground** yang d
 ### Minggu 2: Integration, Fullstack Prep & Portofolio Ready (Sedang Berjalan 🚀)
 - **Hari 8 (Senin, 5 Okt)**: Integrasi Backend Laravel REST API (CORS, Sanctum PAT token bearer, Axios interceptor, Protected Routes). ✅
 - **Hari 9 (Selasa, 6 Okt)**: Advanced Forms (React Hook Form v7 uncontrolled zero re-render), validasi skema runtime (Zod), Shadcn UI primitives (`Input`, `Select`, `Textarea`, `Checkbox`, `Button`, `Card`). ✅
-- **Hari 10 (Rabu, 7 Okt)**: Optimasi performa render (`useMemo`, `useCallback`, `React.memo`), `useRef`, dan concurrent updates.
-- **Hari 11 (Kamis, 8 Okt)**: Pengenalan dasar Next.js App Router (SSR vs SSG vs SPA, Server Components vs Client Components).
+- **Hari 10 (Rabu, 7 Okt)**: Optimasi performa render (`useMemo`, `useCallback`, `React.memo`), `useRef`, dan concurrent updates (`useTransition`). ✅
+- **Hari 11 (Kamis, 8 Okt)**: Pengenalan dasar Next.js App Router (SSR vs SSG vs ISR vs CSR SPA, React Server Components vs Client Components, Hydration Lifecycle & Leaf Pattern). ✅
 - **Hari 12 (Jumat, 9 Okt)**: Slicing Dashboard Admin profesional (Sidebar responsif, statistik cards, datatable, search & pagination).
 - **Hari 13 (Sabtu, 10 Okt)**: Mini Project 2: Fullstack Dashboard terhubung REST API Laravel end-to-end.
 - **Hari 14 (Minggu, 11 Okt)**: Final UI polish, build produksi, deploy live Vercel.
