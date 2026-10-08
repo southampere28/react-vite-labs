@@ -57,6 +57,19 @@ export const RootLayout = () => {
           </NavLink>
 
           <NavLink
+            to="/performance"
+            className={({ isActive }) =>
+              `text-sm font-medium transition-colors ${
+                isActive
+                  ? "text-blue-600 dark:text-blue-400 font-semibold"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+              }`
+            }
+          >
+            ⚡ Performa (Hari 10)
+          </NavLink>
+
+          <NavLink
             to="/tasks"
             className={({ isActive }) =>
               `text-sm font-medium transition-colors ${
