@@ -95,7 +95,7 @@ export const RootLayout = () => {
             🎯 Task Tracker (Mini Project 1)
           </NavLink>
 
-          <NavLink
+          {/* <NavLink
             to="/notes"
             className={({ isActive }) =>
               `text-sm font-medium transition-colors ${
@@ -106,7 +106,7 @@ export const RootLayout = () => {
             }
           >
             📖 Catatan Belajar
-          </NavLink>
+          </NavLink> */}
 
           {isAuthenticated && (
             <NavLink
